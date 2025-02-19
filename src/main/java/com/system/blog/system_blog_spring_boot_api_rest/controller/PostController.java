@@ -29,5 +29,4 @@ public class PostController {
     public ResponseEntity<PostDTO> getPostById(@PathVariable(name = "id") long id){
         return ResponseEntity.ok(postService.getPostById(id));
     }
-
 }

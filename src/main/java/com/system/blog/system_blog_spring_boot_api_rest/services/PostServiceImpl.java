@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PostServiceImpl implements PostService{
+public class PostServiceImpl implements PostService {
     @Autowired
     private RepositoryPost repositoryPost;
 
@@ -42,6 +42,21 @@ public class PostServiceImpl implements PostService{
                 .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("post", "id", id));
         return mapDTO(post);
+    }
+
+    //Update Post
+    @Override
+    public PostDTO updatePost(PostDTO postDTO, long id) {
+        Post post = repositoryPost
+                .findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("post", "id", id));
+
+        post.setDescription(postDTO.getDescription());
+        post.setContent(postDTO.getContent());
+        post.setTitle(postDTO.getTitle());
+
+        Post updatedPost = repositoryPost.save(post);
+        return mapDTO(updatedPost);
     }
 
     // Method to convert Entity to DTO
